@@ -84,14 +84,13 @@ void n_Queens::placeQueen(int numQueens, int column) //something like this will 
 		}
 		return;
 	}
-
 }
 
 void n_Queens::displayBoard(stack<BoardSpaces> filledSpaces) const
 {
-	cout << endl << "\t" << boardSize << "-Queens Soulution." << endl;	
+	cout << endl << "\t" << boardSize << "-Queens Solution." << endl;
 	cout << "\t" << std::string(1, char(201));
-    cout <<  string(boardSize * 2 + 1, char(205));
+	cout << string(boardSize * 2 + 1, char(205));
 	cout << string(1, char(187)) << endl;
 
 	for (int index = 0; index < boardSize; index++)
@@ -110,12 +109,12 @@ void n_Queens::displayBoard(stack<BoardSpaces> filledSpaces) const
 			if (j < boardSize - 1)
 			{
 				cout << string(1, char(179));
-			}			
+			}
 		}
 		cout << " " << string(1, char(186)) << endl;
 		filledSpaces.pop();
 	}
-	
+
 	cout << "\t" << std::string(1, char(200));
 	cout << string(boardSize * 2 + 1, char(205));
 	cout << string(1, char(188)) << endl;
@@ -125,9 +124,9 @@ void n_Queens::displayBoard(stack<BoardSpaces> filledSpaces) const
 
 bool checkIfConflict(int boardSize, stack<BoardSpaces> filledSpaces, BoardSpaces currentSpace)
 {
-	 if (filledSpaces.size() > 0)
-	 {
-		
+	if (filledSpaces.size() > 0)
+	{
+
 		if (abs(filledSpaces.top().getColumn() - currentSpace.getColumn()) <= 1)
 		{
 			return true;
@@ -137,6 +136,10 @@ bool checkIfConflict(int boardSize, stack<BoardSpaces> filledSpaces, BoardSpaces
 			filledSpaces.pop();
 			while (!filledSpaces.empty())
 			{
+				if (filledSpaces.top().getRow() == currentSpace.getRow())
+				{
+					return true;
+				}
 				if (filledSpaces.top().getColumn() == currentSpace.getColumn())
 				{
 					return true;
@@ -148,7 +151,7 @@ bool checkIfConflict(int boardSize, stack<BoardSpaces> filledSpaces, BoardSpaces
 				filledSpaces.pop();
 			}
 		}
-	}	
+	}
 	return false;
 }
 
@@ -158,7 +161,7 @@ void n_QueensMenu()
 	n_Queens game;
 	game.placeFirstQueen();
 	do
-	{		
+	{
 		break;
 
 	} while (true);

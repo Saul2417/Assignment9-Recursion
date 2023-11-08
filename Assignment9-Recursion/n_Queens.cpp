@@ -126,7 +126,6 @@ bool checkIfConflict(int boardSize, stack<BoardSpaces> filledSpaces, BoardSpaces
 {
 	if (filledSpaces.size() > 0)
 	{
-
 		if (abs(filledSpaces.top().getColumn() - currentSpace.getColumn()) <= 1)
 		{
 			return true;

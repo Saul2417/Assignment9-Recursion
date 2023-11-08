@@ -22,7 +22,7 @@ public:
 	int getBoardSize() const;
 	int getFilled() const;
 	void placeFirstQueen();
-	void placeQueen(int numQueens, int row);
+	bool placeQueen(int numQueens, int row);
 	void displayBoard(stack<BoardSpaces> filledSpaces) const;
 };
 

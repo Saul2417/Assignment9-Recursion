@@ -44,46 +44,72 @@ void n_Queens::placeFirstQueen()
 	int numQueens = 1;
 	int column;
 	column = inputInteger("Enter the column to place the first queen : ", 1, boardSize);
-	placeQueen(numQueens, column);
-	if (filledSpaces.size() != boardSize)
+	currentSpace.setColumn(column);
+	currentSpace.setRow(1);
+	filledSpaces.push(currentSpace);
+	bool completeBoard = false;
+	if (placeQueen(2, column))
 	{
 		cout << "No Solution Found";
 	}
 
 }
 
-
-void n_Queens::placeQueen(int numQueens, int column) //something like this will be the main recursive function
+bool n_Queens::placeQueen(int numQueens, int column) //something like this will be the main recursive function
 {
+	////plan:
+	//BoardSpaces currentSpace;
+	//bool placed = false;
+	//bool completeBoard = false;
+	//currentSpace.setColumn(column);
+	//currentSpace.setRow(numQueens);
+	//bool conflict = checkIfConflict(boardSize, filledSpaces, currentSpace);
+	//if (numQueens == boardSize && conflict == false) // checks if board is complete
+	//{
+	//	filledSpaces.push(currentSpace);
+	//	displayBoard(filledSpaces);
+	//	completeBoard == true;
+	//	return completeBoard;
+	//}
+	//else if (conflict == false)
+	//{
+	//	filledSpaces.push(currentSpace);
+	//}
+
 	//plan:
 	BoardSpaces currentSpace;
 	bool placed = false;
+	bool completeBoard = false;
 	currentSpace.setColumn(column);
 	currentSpace.setRow(numQueens);
-	bool conflict = checkIfConflict(boardSize, filledSpaces, currentSpace);
-	if (numQueens == boardSize && conflict == false) // checks if board is complete
-	{
-		filledSpaces.push(currentSpace);
+
+	if (filledSpaces.size() == boardSize) // checks if board is complete
+	{		
 		displayBoard(filledSpaces);
-		return;
+		completeBoard == true;
+		return completeBoard;
 	}
-	else if (conflict == false) // checks if no conflict
+
+	for (int index = 1; index <= boardSize; index++) 
 	{
-		filledSpaces.push(currentSpace);
-		placeQueen(numQueens + 1, 1);
-	}
-	else if (conflict == true && column != boardSize) // checks if queen on current row is not on the last column
-	{
-		placeQueen(numQueens, column + 1);
-	}
-	else if (conflict == true && column == boardSize)
-	{
-		if (!filledSpaces.empty())
+		currentSpace.setColumn(index);
+		if (checkIfConflict(boardSize, filledSpaces, currentSpace) == false) 
 		{
+			// push queen to board
+			filledSpaces.push(currentSpace);
+
+			// call the function again
+			filled = placeQueen(numQueens + 1, column);
+
+			// Backtrack if needed
 			filledSpaces.pop();
 		}
-		return;
 	}
+	if (filledSpaces.size() == boardSize)
+	{
+		completeBoard = true;
+	}
+	return completeBoard;
 }
 
 void n_Queens::displayBoard(stack<BoardSpaces> filledSpaces) const

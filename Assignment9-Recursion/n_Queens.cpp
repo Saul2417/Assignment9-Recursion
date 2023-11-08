@@ -154,7 +154,6 @@ bool checkIfConflict(int boardSize, stack<BoardSpaces> filledSpaces, BoardSpaces
 	return false;
 }
 
-
 void n_QueensMenu()
 {
 	n_Queens game;
